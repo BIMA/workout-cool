@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gym-config
+  namespace: gym  # Change this to your desired namespace
+data:
+  # Application Configuration
+  BETTER_AUTH_URL: "gym-app-service.gym.svc.cluster.local:3000"
+  NEXT_PUBLIC_APP_URL: "gym-app-service.gym.svc.cluster.local:3000"
+  SEED_SAMPLE_DATA: "true"

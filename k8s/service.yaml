@@ -1,0 +1,41 @@
+# maybe Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: gym-app-service
+  namespace: gym
+spec:
+  selector:
+    app: gym-app
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: ClusterIP
+
+---
+# maybe postgres Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: gym-db-service
+  namespace: gym
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gym-app-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  ports:
+    - port: 3000
+      targetPort: 3000
+  externalName: gym-app-service.gym.svc.cluster.local

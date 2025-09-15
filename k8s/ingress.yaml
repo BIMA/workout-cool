@@ -1,0 +1,87 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/rate-limit-connections: "50"
+    nginx.ingress.kubernetes.io/rate-limit-requests: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: 1m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: ingress-misuh-me
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: ghost-proxy
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: grafana.misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: grafana-proxy
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  - host: quote.misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: quote-webapp-frontend-service
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: quote-webapp
+            port:
+              number: 8080
+        path: /v1
+        pathType: Prefix
+  - host: n8n.misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: n8n-proxy
+            port:
+              number: 5678
+        path: /
+        pathType: Prefix
+  - host: finance.misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: maybe-app-proxy
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  - host: gym.misuh.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: gym-app-proxy
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - misuh.me
+    - '*.misuh.me'
+    secretName: misuh-me-tls
