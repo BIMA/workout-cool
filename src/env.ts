@@ -27,6 +27,10 @@ export const env = createEnv({
 
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_WEBHOOK_SECRET: z.string().optional(),
+
+    // RevenueCat configuration
+    REVENUECAT_SECRET_KEY: z.string().optional(),
+    REVENUECAT_WEBHOOK_SECRET: z.string().optional(),
   },
   /**
    * If you add `client` environment variables, you need to add them to
@@ -87,6 +91,12 @@ export const env = createEnv({
     NEXT_PUBLIC_TOP_CUNNINGHAM_CALCULATOR_AD_SLOT: z.string().optional(),
     NEXT_PUBLIC_TOP_CALORIE_CALCULATOR_COMPARISON_AD_SLOT: z.string().optional(),
     NEXT_PUBLIC_BOTTOM_CALORIE_CALCULATOR_COMPARISON_AD_SLOT: z.string().optional(),
+    // Ezoic configuration
+    NEXT_PUBLIC_AD_PROVIDER: z.enum(["adsense", "ezoic"]).optional().default("adsense"),
+    NEXT_PUBLIC_EZOIC_VERTICAL_LEFT_PLACEMENT_ID: z.string().optional(),
+    NEXT_PUBLIC_EZOIC_VERTICAL_RIGHT_PLACEMENT_ID: z.string().optional(),
+    // GA4
+    NEXT_PUBLIC_GA4_MEASUREMENT_ID: z.string().optional(),
   },
 
   experimental__runtimeEnv: {
@@ -144,5 +154,9 @@ export const env = createEnv({
     NEXT_PUBLIC_TOP_CUNNINGHAM_CALCULATOR_AD_SLOT: process.env.NEXT_PUBLIC_TOP_CUNNINGHAM_CALCULATOR_AD_SLOT,
     NEXT_PUBLIC_TOP_CALORIE_CALCULATOR_COMPARISON_AD_SLOT: process.env.NEXT_PUBLIC_TOP_CALORIE_CALCULATOR_COMPARISON_AD_SLOT,
     NEXT_PUBLIC_BOTTOM_CALORIE_CALCULATOR_COMPARISON_AD_SLOT: process.env.NEXT_PUBLIC_BOTTOM_CALORIE_CALCULATOR_COMPARISON_AD_SLOT,
+    NEXT_PUBLIC_AD_PROVIDER: process.env.NEXT_PUBLIC_AD_PROVIDER,
+    NEXT_PUBLIC_EZOIC_VERTICAL_LEFT_PLACEMENT_ID: process.env.NEXT_PUBLIC_EZOIC_VERTICAL_LEFT_PLACEMENT_ID,
+    NEXT_PUBLIC_EZOIC_VERTICAL_RIGHT_PLACEMENT_ID: process.env.NEXT_PUBLIC_EZOIC_VERTICAL_RIGHT_PLACEMENT_ID,
+    NEXT_PUBLIC_GA4_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID,
   },
 });

@@ -254,6 +254,23 @@ export default async function RootLayout({ params, children }: RootLayoutProps) 
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${env.NEXT_PUBLIC_AD_CLIENT}`}
           />
 
+          {/* Ezoic Privacy Scripts */}
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+          <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js" />
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+          <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js" />
+
+          {/* Ezoic Header Script */}
+          <script async src="//www.ezojs.com/ezoic/sa.min.js" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.ezstandalone = window.ezstandalone || {};
+                ezstandalone.cmd = ezstandalone.cmd || [];
+              `,
+            }}
+          />
+
           {/* PWA Meta Tags */}
           <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta content="default" name="apple-mobile-web-app-status-bar-style" />
@@ -279,6 +296,28 @@ export default async function RootLayout({ params, children }: RootLayoutProps) 
 
           {/* Theme color for PWA */}
           <meta content="#FF5722" name="theme-color" />
+
+          {/* Impact site verification */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          <meta name="impact-site-verification" value="e6afc3fc-0dcd-4625-a8cd-282991d40164" />
+
+          {/* Google Analytics 4 */}
+          {env.NEXT_PUBLIC_GA4_MEASUREMENT_ID && (
+            <>
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${env.NEXT_PUBLIC_GA4_MEASUREMENT_ID}`} />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${env.NEXT_PUBLIC_GA4_MEASUREMENT_ID}');
+                  `,
+                }}
+              />
+            </>
+          )}
 
           {/* Structured Data */}
           <StructuredDataScript data={websiteStructuredData} />
